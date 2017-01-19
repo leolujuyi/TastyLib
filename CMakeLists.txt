@@ -56,6 +56,7 @@ endif ()
 # Add benchmark executables
 set(BENCHMARK_EXEC_LIST
     benchmark_DoublyLinkedList
+    benchmark_BinaryHeap
     benchmark_MD5)
 
 foreach (exec ${BENCHMARK_EXEC_LIST})
