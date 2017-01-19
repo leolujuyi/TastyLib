@@ -1,0 +1,123 @@
+#ifndef TASTYLIB_BINARYHEAP_H_
+#define TASTYLIB_BINARYHEAP_H_
+
+#include "tastylib/internal/base.h"
+#include <functional>
+#include <vector>
+#include <stdexcept>
+
+TASTYLIB_NS_BEGIN
+
+/*
+A heap data structure taking the form of a complete binary tree.
+
+@param ValueType The type of the value stored in the heap
+@param PredType The type of the binary predicate to arrange tree nodes.
+                The heap ensures that for each node N in the tree,
+                pred(N.value, N.parent.value) == true. By default, it uses
+                operator '>=' as the predicate, which makes it a min-heap.
+*/
+template <typename ValueType, typename PredType = std::greater_equal<ValueType>>
+class BinaryHeap {
+public:
+    typedef std::vector<ValueType> Container;
+    typedef typename Container::size_type SizeType;
+
+    /*
+    Destructor.
+    */
+    ~BinaryHeap() {}
+
+    /*
+    Default constructor.
+    */
+    BinaryHeap() : size(0), tree(1, 0) {}
+
+    /*
+    Return the amount of elements in the heap.
+    */
+    SizeType getSize() const {
+        return size;
+    }
+
+    /*
+    Return true if the heap has no elements.
+    */
+    bool isEmpty() const {
+        return size == 0;
+    }
+
+    /*
+    Clear the elements in the heap.
+    */
+    void clear() {
+        size = 0;
+    }
+
+    /*
+    Insert a new element to the heap.
+
+    @param val The value of the element to be inserted
+    */
+    void push(const ValueType &val) {
+        if (size + 1 == tree.size()) {  // The tree array is full
+            tree.resize(tree.size() << 1);  // Expand space
+        }
+        // The new element percolates up in the heap
+        int i;
+        for (i = ++size; i != 1 && !pred(val, tree[i >> 1]); i >>= 1) {
+            tree[i] = tree[i >> 1];
+        }
+        tree[i] = val;
+    }
+
+    /*
+    Return the root element of the heap.
+    Precondition: The heap is non-empty.
+    */
+    ValueType top() const {
+        return tree[1];
+    }
+
+    /*
+    Remove the root element of the heap and maintain the nodes order.
+    Precondition: The heap is non-empty.
+    */
+    void pop() {
+        ValueType last = tree[size--];
+        SizeType i, child;
+        // The empty hole(root) percolates down in the heap
+        for (i = 1; (i << 1) <= size; i = child) {
+            child = i << 1;
+            if (child != size && pred(tree[child], tree[child + 1])) {
+                ++child;
+            }
+            if (pred(tree[child], last)) {
+                break;
+            } else {
+                tree[i] = tree[child];
+            }
+        }
+        tree[i] = last;
+    }
+
+private:
+    SizeType size;
+    PredType pred;
+
+    /*
+    Store the complete binary tree in an array named 'tree'.
+    The first element is stored at tree[1]. The value of
+    tree[0] has no use.
+
+    For each node i in the tree:
+    1. tree[2 * i] is the node value of its left child.
+    2. tree[2 * i + 1] is the node value of its right child.
+    3. tree[floor(i / 2)] is the node value if its parent node.
+    */
+    Container tree;
+};
+
+TASTYLIB_NS_END
+
+#endif

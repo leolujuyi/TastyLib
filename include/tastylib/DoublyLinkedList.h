@@ -192,17 +192,11 @@ public:
                 if (del->next) {
                     del->next->prev = bestNode;
                 }
-            } else if (bestNode->prev) {
+            } else {  // bestNode->prev is not null
                 del = bestNode;
                 del->prev->next = del->next;
                 if (del->next) {
                     del->next->prev = del->prev;
-                }
-            } else {  // bestNode->next not null
-                del = bestNode;
-                del->next->prev = del->prev;
-                if (del->prev) {
-                    del->prev->next = del->next;
                 }
             }
             delete del;
@@ -245,19 +239,19 @@ public:
     }
 
     /*
-    See function { void sort(const PredType &pred) }.
+    Sort the list nodes in ascending order.
+    The function uses operator '<' to compare two nodes.
     */
     void sort() {
         sort(std::less<ValueType>());
     }
 
     /*
-    Sort the list nodes.
+    Sort the list nodes in custom order.
 
     @param pred A binary predicate to compare two node values. This function
                 ensures that for each node A and its next node B in the list,
-                pred(A.value, B.value) == true. By default it uses operator
-                '<' to compare two nodes.
+                pred(A.value, B.value) == true.
     */
     template<typename PredType>
     void sort(const PredType &pred) {
@@ -273,23 +267,15 @@ private:
     Get a best node to perform inserting operation at a given position.
     The function is available only when the list is not empty.
 
-    @param pos The given position
+    @param pos The given position. Its values must lie in the interval (0, size).
     @param prevNode If true, the returned node is previous to the node at
                     the given position. If false, the returned node is the
                     node at the given position.
     @return The pointer to the best node.
     */
     Node* getBestNode(const SizeType &pos, bool &prevNode) const {
-        if (pos == 0) {
-            prevNode = false;
-            return head;
-        } else if (pos == size) {
-            prevNode = true;
-            return tail;
-        }
         Node *res = nullptr;
-        SizeType distToHead = pos - 1;
-        SizeType distToTail = size - pos - 1;
+        SizeType distToHead = pos - 1, distToTail = size - pos - 1;
         if (distToHead < distToTail) {
             res = head;
             for (SizeType i = 0; i < distToHead; ++i) {

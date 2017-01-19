@@ -6,9 +6,9 @@ It is also a **header-only** library, which means that you could just copy the `
 
 ## Build Status
 
-| Linux | Windows |
-|:-----:|:-------:|
-|[![Build Status](https://travis-ci.org/stevennL/TastyLib.svg?branch=master)](https://travis-ci.org/stevennL/TastyLib)|[![Build Status](https://ci.appveyor.com/api/projects/status/kbpwdij5qpyw2vs7?svg=true)](https://ci.appveyor.com/project/stevennL/tastylib)|
+| Linux | Windows | Coverage |
+|:-----:|:-------:|:--------:|
+|[![Build Status](https://travis-ci.org/stevennL/TastyLib.svg?branch=master)](https://travis-ci.org/stevennL/TastyLib)|[![Build Status](https://ci.appveyor.com/api/projects/status/kbpwdij5qpyw2vs7?svg=true)](https://ci.appveyor.com/project/stevennL/tastylib)|[![Coverage Status](https://coveralls.io/repos/github/stevennL/TastyLib/badge.svg?branch=master)](https://coveralls.io/github/stevennL/TastyLib?branch=master)|
 
 ## Outline
 
@@ -16,15 +16,16 @@ Contents below show the data structures and algorithms available in this project
 
 ### Data Structures
 
-| Name | Source | Unit Test | Benchmarked | Note | Reference |
-|------|--------|:---------:|:-----------:|------|-----------|
-|[DoublyLinkedList](#doublylinkedlist)|[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|[test_DoublyLinkedList.cpp](./test/test_DoublyLinkedList.cpp)|:heavy_check_mark:|Support sorting.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
+| Name | Source | Benchmarked | Note | Reference |
+|:----:|:------:|:-----------:|------|-----------|
+|[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|Support sorting.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
+|[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
 
 ### Algorithms
 
-| Name | Source | Unit Test | Benchmarked | Note | Reference |
-|------|--------|:---------:|:-----------:|------|-----------|
-|[MD5](#md5)|[MD5.h](./include/tastylib/MD5.h)|[test_MD5.cpp](./test/test_MD5.cpp)|:heavy_check_mark:|A standard MD5 algorithm.|[Wikipedia](https://en.wikipedia.org/wiki/MD5) [Baike](http://baike.baidu.com/link?url=ZjuEzUZEfPbCX7smQOsY4lGu1lF6i5xPIwRqmWsTCRc8EdtLV_lRGDpEOOGE3OCgkMZuQp-kQ3lZdM_z6rTczq)|
+| Name | Source | Benchmarked | Note | Reference |
+|:----:|:------:|:-----------:|------|-----------|
+|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A standard MD5 algorithm.|[Wikipedia](https://en.wikipedia.org/wiki/MD5) [Baike](http://baike.baidu.com/link?url=ZjuEzUZEfPbCX7smQOsY4lGu1lF6i5xPIwRqmWsTCRc8EdtLV_lRGDpEOOGE3OCgkMZuQp-kQ3lZdM_z6rTczq)|
 
 ## Installation
 
@@ -105,19 +106,19 @@ int main() {
 | Operation | Time |
 |:---------:|:----:|
 |[insertFront()](./include/tastylib/DoublyLinkedList.h#L144)|O(1)|
-|[removeFront()](./include/tastylib/DoublyLinkedList.h#L216)|O(1)|
+|[removeFront()](./include/tastylib/DoublyLinkedList.h#L210)|O(1)|
 |[insertBack()](./include/tastylib/DoublyLinkedList.h#L160)|O(1)|
-|[removeBack()](./include/tastylib/DoublyLinkedList.h#L233)|O(1)|
+|[removeBack()](./include/tastylib/DoublyLinkedList.h#L227)|O(1)|
 |[insert()](./include/tastylib/DoublyLinkedList.h#L110)|O(n)|
 |[remove()](./include/tastylib/DoublyLinkedList.h#L177)|O(n)|
 |[find()](./include/tastylib/DoublyLinkedList.h#L93)|O(n)|
-|[sort()](./include/tastylib/DoublyLinkedList.h#L250)|O(nlogn)|
+|[sort()](./include/tastylib/DoublyLinkedList.h#L245)|O(nlogn)|
 
 ##### Cost in practice
 
 Source: [benchmark_DoublyLinkedList.cpp](./src/benchmark_DoublyLinkedList.cpp)
 
-The program compares the time cost of `std::list` with `DoublyLinkedList`. When benchmarking `find()` and `sort()`, the size of the list is **100,000** and **5,000,000**, respectively. Here are the results under different environments:
+The program compares the time cost of `DoublyLinkedList` with `std::list`. When benchmarking `find()` and `sort()`, the size of the list is **100,000** and **5,000,000**, respectively. Here are the results under different environments:
 
 ###### Ubuntu 16.04 64-bit / g++ 5.4
 
@@ -153,6 +154,69 @@ The program compares the time cost of `std::list` with `DoublyLinkedList`. When 
 |sort()|3717 ms|3729 ms|
 
 **(Items marked with * may be unreliable.)**
+
+### BinaryHeap
+
+#### Usage
+
+```c++
+#include "tastylib/BinaryHeap.h"
+
+using namespace tastylib;
+
+int main() {
+    BinaryHeap<int> heap;  // Create a min-root heap
+
+    auto isEmpty = heap.isEmpty();  // isEmpty == true
+
+    heap.push(50);
+    heap.push(20);
+    heap.push(30);
+
+    auto size1 = heap.getSize();  // size1 == 3
+
+    auto val1 = heap.top();  // val1 == 20
+    heap.pop();
+    auto val2 = heap.top();  // val2 == 30
+    heap.pop();
+    auto val3 = heap.top();  // val3 == 50
+    heap.pop();
+
+    auto size2 = heap.getSize();  // size2 == 0
+
+    return 0;
+}
+```
+
+#### Benchmark
+
+##### Cost in theory
+
+| Operation | Time |
+|:---------:|:----:|
+|[push()](./include/tastylib/BinaryHeap.h#L62)|O(nlogn)|
+|[top()](./include/tastylib/BinaryHeap.h#L78)|O(1)|
+|[pop()](./include/tastylib/BinaryHeap.h#L86)|O(nlogn)|
+
+##### Cost in practice
+
+Source: [benchmark_BinaryHeap.cpp](./src/benchmark_BinaryHeap.cpp)
+
+The program compares the time cost of `BinaryHeap` with `std::priority_queue`. It calculates the average time cost of each operation. Here are the results under different environments:
+
+###### Ubuntu 16.04 64-bit / g++ 5.4
+
+| Operation | std::priority_queue | BinaryHeap |
+|:---------:|:-------------------:|:----------:|
+|push()|17 ns|16 ns|
+|pop()|294 ns|293 ns|
+
+###### Windows 10 64-bit / Visual Studio 14 2015
+
+| Operation | std::priority_queue | BinaryHeap |
+|:---------:|:-------------------:|:----------:|
+|push()|23 ns|22 ns|
+|pop()|498 ns|**254 ns**|
 
 ### MD5
 
