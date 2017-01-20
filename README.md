@@ -18,14 +18,15 @@ Contents below show the data structures and algorithms available in this project
 
 | Name | Source | Benchmarked | Note | Reference |
 |:----:|:------:|:-----------:|------|-----------|
-|[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|Support sorting.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
+|[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|A linked data structure that consists of a set of sequentially linked records. It also supports merge sort.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
 |[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
+|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:heavy_multiplication_x:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
 
 ### Algorithms
 
 | Name | Source | Benchmarked | Note | Reference |
 |:----:|:------:|:-----------:|------|-----------|
-|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A standard MD5 algorithm.|[Wikipedia](https://en.wikipedia.org/wiki/MD5) [Baike](http://baike.baidu.com/link?url=ZjuEzUZEfPbCX7smQOsY4lGu1lF6i5xPIwRqmWsTCRc8EdtLV_lRGDpEOOGE3OCgkMZuQp-kQ3lZdM_z6rTczq)|
+|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5) [Baike](http://baike.baidu.com/link?url=ZjuEzUZEfPbCX7smQOsY4lGu1lF6i5xPIwRqmWsTCRc8EdtLV_lRGDpEOOGE3OCgkMZuQp-kQ3lZdM_z6rTczq)|
 
 ## Installation
 
@@ -105,14 +106,14 @@ int main() {
 
 | Operation | Time |
 |:---------:|:----:|
-|[insertFront()](./include/tastylib/DoublyLinkedList.h#L144)|O(1)|
-|[removeFront()](./include/tastylib/DoublyLinkedList.h#L210)|O(1)|
-|[insertBack()](./include/tastylib/DoublyLinkedList.h#L160)|O(1)|
-|[removeBack()](./include/tastylib/DoublyLinkedList.h#L227)|O(1)|
-|[insert()](./include/tastylib/DoublyLinkedList.h#L110)|O(n)|
-|[remove()](./include/tastylib/DoublyLinkedList.h#L177)|O(n)|
-|[find()](./include/tastylib/DoublyLinkedList.h#L93)|O(n)|
-|[sort()](./include/tastylib/DoublyLinkedList.h#L245)|O(nlogn)|
+|[insertFront()](./include/tastylib/DoublyLinkedList.h#L146)|O(1)|
+|[removeFront()](./include/tastylib/DoublyLinkedList.h#L212)|O(1)|
+|[insertBack()](./include/tastylib/DoublyLinkedList.h#L162)|O(1)|
+|[removeBack()](./include/tastylib/DoublyLinkedList.h#L229)|O(1)|
+|[insert()](./include/tastylib/DoublyLinkedList.h#L112)|O(n)|
+|[remove()](./include/tastylib/DoublyLinkedList.h#L179)|O(n)|
+|[find()](./include/tastylib/DoublyLinkedList.h#L94)|O(n)|
+|[sort()](./include/tastylib/DoublyLinkedList.h#L246)|O(nlogn)|
 
 ##### Cost in practice
 
@@ -194,9 +195,9 @@ int main() {
 
 | Operation | Time |
 |:---------:|:----:|
-|[push()](./include/tastylib/BinaryHeap.h#L62)|O(nlogn)|
-|[top()](./include/tastylib/BinaryHeap.h#L78)|O(1)|
-|[pop()](./include/tastylib/BinaryHeap.h#L86)|O(nlogn)|
+|[push()](./include/tastylib/BinaryHeap.h#L63)|O(nlogn)|
+|[top()](./include/tastylib/BinaryHeap.h#L79)|O(1)|
+|[pop()](./include/tastylib/BinaryHeap.h#L87)|O(nlogn)|
 
 ##### Cost in practice
 
@@ -217,6 +218,55 @@ The program compares the time cost of `BinaryHeap` with `std::priority_queue`. I
 |:---------:|:-------------------:|:----------:|
 |push()|23 ns|22 ns|
 |pop()|498 ns|**254 ns**|
+
+### HashTable
+
+#### Usage
+
+```c++
+#include "tastylib/HashTable.h"
+#include <string>
+
+using namespace tastylib;
+
+int main() {
+    HashTable<std::string> table;
+
+    auto isEmpty = table.isEmpty();  // isEmpty == true
+
+    table.insert("Alice");
+    table.insert("Darth");
+
+    auto size1 = table.getSize();  // size1 == 2
+
+    auto hasAlice = table.has("Alice");  // hasAlice == true
+    auto hasDarth = table.has("Darth");  // hasDarth == true
+
+    table.remove("Darth");
+
+    hasAlice = table.has("Alice");  // hasAlice == true
+    hasDarth = table.has("Darth");  // hasDarth == false
+
+    auto size2 = table.getSize();  // size2 == 1
+
+    return 0;
+}
+```
+
+#### Benchmark
+
+##### Cost in theory
+
+| Operation | Time |
+|:---------:|:----:|
+|[insert()](./include/tastylib/HashTable.h#L88)|O(1)|
+|[has()/find()](./include/tastylib/HashTable.h#L76)|O(1)|
+|[remove()](./include/tastylib/HashTable.h#L102)|O(1)|
+|[rehash()](./include/tastylib/HashTable.h#L117)|O(n)|
+
+##### Cost in practice
+
+Note that there are many different ways to implement the hash table. The C++ standard library implements the `std::unordered_set` as a **dynamic** hash table, which means that its bucket amount changes dynamically when performing `insert()` and `remove()/erase()` operations(i.e., using [extendible hashing](https://en.wikipedia.org/wiki/Extendible_hashing) or [linear hashing](https://en.wikipedia.org/wiki/Linear_hashing)). While in TastyLib, for simplicity, the hash table is **static** so its bucket amount is fixed after initialized. Since different implementations have different pros and cons, it's hard to give a convincing benchmark result.
 
 ### MD5
 

@@ -11,16 +11,17 @@ TASTYLIB_NS_BEGIN
 /*
 A heap data structure taking the form of a complete binary tree.
 
-@param ValueType The type of the value stored in the heap
-@param PredType The type of the binary predicate to arrange tree nodes.
-                The heap ensures that for each node N in the tree,
-                pred(N.value, N.parent.value) == true. By default, it uses
-                operator '>=' as the predicate, which makes it a min-heap.
+@param Value The type of the value stored in the heap
+@param Pred  The type of the binary predicate to arrange tree
+             nodes. The heap ensures that for each node N in
+             the tree, Pred(N.value, N.parent.value) == true.
+             By default it uses operator '>=' as the predicate,
+             which makes it a min-root heap.
 */
-template <typename ValueType, typename PredType = std::greater_equal<ValueType>>
+template <typename Value, typename Pred = std::greater_equal<Value>>
 class BinaryHeap {
 public:
-    typedef std::vector<ValueType> Container;
+    typedef std::vector<Value> Container;
     typedef typename Container::size_type SizeType;
 
     /*
@@ -59,7 +60,7 @@ public:
 
     @param val The value of the element to be inserted
     */
-    void push(const ValueType &val) {
+    void push(const Value &val) {
         if (size + 1 == tree.size()) {  // The tree array is full
             tree.resize(tree.size() << 1);  // Expand space
         }
@@ -75,7 +76,7 @@ public:
     Return the root element of the heap.
     Precondition: The heap is non-empty.
     */
-    ValueType top() const {
+    Value top() const {
         return tree[1];
     }
 
@@ -84,7 +85,7 @@ public:
     Precondition: The heap is non-empty.
     */
     void pop() {
-        ValueType last = tree[size--];
+        Value last = tree[size--];
         SizeType i, child;
         // The empty hole(root) percolates down in the heap
         for (i = 1; (i << 1) <= size; i = child) {
@@ -103,7 +104,7 @@ public:
 
 private:
     SizeType size;
-    PredType pred;
+    Pred pred;
 
     /*
     Store the complete binary tree in an array named 'tree'.
