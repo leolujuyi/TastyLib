@@ -57,7 +57,6 @@ endif ()
 set(BENCHMARK_EXEC_LIST
     benchmark_DoublyLinkedList
     benchmark_BinaryHeap
-    benchmark_HashTable
     benchmark_MD5)
 
 foreach (exec ${BENCHMARK_EXEC_LIST})

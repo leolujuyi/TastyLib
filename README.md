@@ -20,7 +20,7 @@ Contents below show the data structures and algorithms available in this project
 |:----:|:------:|:-----------:|------|-----------|
 |[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|A linked data structure that consists of a set of sequentially linked records. It also supports merge sort.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
 |[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
-|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:heavy_check_mark:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
+|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:heavy_multiplication_x:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
 
 ### Algorithms
 
@@ -225,11 +225,30 @@ The program compares the time cost of `BinaryHeap` with `std::priority_queue`. I
 
 ```c++
 #include "tastylib/HashTable.h"
+#include <string>
 
 using namespace tastylib;
 
 int main() {
-    
+    HashTable<std::string> table;
+
+    auto isEmpty = table.isEmpty();  // isEmpty == true
+
+    table.insert("Alice");
+    table.insert("Darth");
+
+    auto size1 = table.getSize();  // size1 == 2
+
+    auto hasAlice = table.has("Alice");  // hasAlice == true
+    auto hasDarth = table.has("Darth");  // hasDarth == true
+
+    table.remove("Darth");
+
+    hasAlice = table.has("Alice");  // hasAlice == true
+    hasDarth = table.has("Darth");  // hasDarth == false
+
+    auto size2 = table.getSize();  // size2 == 1
+
     return 0;
 }
 ```
@@ -240,10 +259,14 @@ int main() {
 
 | Operation | Time |
 |:---------:|:----:|
+|[insert()](./include/tastylib/HashTable.h#L88)|O(1)|
+|[has()/find()](./include/tastylib/HashTable.h#L76)|O(1)|
+|[remove()](./include/tastylib/HashTable.h#L102)|O(1)|
+|[rehash()](./include/tastylib/HashTable.h#L117)|O(n)|
 
 ##### Cost in practice
 
-Source: [benchmark_HashTable.cpp](./src/benchmark_HashTable.cpp)
+Note that there are many different ways to implement the hash table. The C++ standard library implements the `std::unordered_set` as a **dynamic** hash table, which means that its bucket amount changes dynamically when performing `insert()` and `remove()/erase()` operations(i.e., using [extendible hashing](https://en.wikipedia.org/wiki/Extendible_hashing) or [linear hashing](https://en.wikipedia.org/wiki/Linear_hashing)). While in TastyLib, for simplicity, the hash table is **static** so its bucket amount is fixed after initialized. Since different implementations have different pros and cons, it's hard to give a convincing benchmark result.
 
 ### MD5
 
