@@ -9,18 +9,20 @@ TASTYLIB_NS_BEGIN
 /*
 Doubly linked list data structure.
 
-@param ValueType The type of list node value. The list uses
-                 operator '==' to check if two node values are equal.
+@param Value The type of list node value.
+@param Pred  A binary predicate that checks if two node values are equal.
+             If Pred(a, b) == true, then value 'a' and value 'b' are
+             considered equal.
 */
-template<typename ValueType>
+template<typename Value, typename Pred = std::equal_to<Value>>
 class DoublyLinkedList {
 public:
     struct Node {
-        ValueType val;
+        Value val;
         Node *prev;
         Node *next;
 
-        Node(const ValueType &v, Node *p = nullptr, Node *n = nullptr)
+        Node(const Value &v, Node *p = nullptr, Node *n = nullptr)
             : val(v), prev(p), next(n) {}
     };
 
@@ -75,7 +77,7 @@ public:
              @param val The value of the current traversing node
     */
     void traverse(const std::function<void(const SizeType pos,
-                                           const ValueType &val)> &f) const {
+                                           const Value &val)> &f) const {
         SizeType pos = 0;
         for (Node *tmp = head; tmp; tmp = tmp->next, ++pos) {
             f(pos, tmp->val);
@@ -84,16 +86,16 @@ public:
 
     /*
     Find a node in the list.
-    The function uses operator '==' to check if two node values are equal.
 
     @param val_ The value of the node to be found
     @return The first matching position of the node with value 'val_'.
             If the node does not exist, return -1.
     */
-    int find(const ValueType &val_) const {
+    int find(const Value &val_) const {
+        Pred pred;
         SizeType pos = 0;
         for (Node *tmp = head; tmp; tmp = tmp->next, ++pos) {
-            if (tmp->val == val_) {
+            if (pred(tmp->val, val_)) {
                 return pos;
             }
         }
@@ -107,7 +109,7 @@ public:
     @param pos The position to insert the node
     @param val The value of the node to be inserted
     */
-    void insert(SizeType pos, const ValueType &val) {
+    void insert(SizeType pos, const Value &val) {
         pos = (pos > size ? size : pos);
         if (pos == 0) {
             insertFront(val);
@@ -141,7 +143,7 @@ public:
 
     @param val The value of the node to be inserted
     */
-    void insertFront(const ValueType &val) {
+    void insertFront(const Value &val) {
         Node *newNode = new Node(val, nullptr, head);
         if (head) {
             head->prev = newNode;
@@ -157,7 +159,7 @@ public:
 
     @param val The value of the node to be inserted
     */
-    void insertBack(const ValueType &val) {
+    void insertBack(const Value &val) {
         Node *newNode = new Node(val, tail, nullptr);
         if (tail) {
             tail->next = newNode;
@@ -240,22 +242,21 @@ public:
 
     /*
     Sort the list nodes in ascending order.
-    The function uses operator '<' to compare two nodes.
     */
     void sort() {
-        sort(std::less<ValueType>());
+        sort(std::less<Value>());
     }
 
     /*
     Sort the list nodes in custom order.
 
-    @param pred A binary predicate to compare two node values. This function
-                ensures that for each node A and its next node B in the list,
-                pred(A.value, B.value) == true.
+    @param cmp A binary predicate to compare two node values. The sorting
+               algorithm ensures that after its execution, for each node A
+               and its next node B in the list, cmp(A.value, B.value) == true.
     */
-    template<typename PredType>
-    void sort(const PredType &pred) {
-        head = mergeSort(head, size, pred);
+    template<typename Comparator>
+    void sort(const Comparator &cmp) {
+        head = mergeSort(head, size, cmp);
     }
 
 private:
@@ -295,13 +296,13 @@ private:
     /*
     Running a merge sort procedure of the list.
 
-    @param h The head of the list
+    @param h     The head of the list
     @param size_ The size of the list
-    @param pred A binary predicate to compare two node values
+    @param cmp   A binary predicate to compare two node values
     @return The head pointer of the sorted list
     */
-    template<typename PredType>
-    Node* mergeSort(Node *h, const SizeType size_, const PredType &pred) {
+    template<typename Comparator>
+    Node* mergeSort(Node *h, const SizeType size_, const Comparator &cmp) {
         if (size_ < 2) {
             return h;
         }
@@ -314,14 +315,14 @@ private:
         }
 
         // Sort each half of the list
-        Node *h2 = mergeSort(mid->next, size2, pred);
-        Node *h1 = mergeSort(h, size1, pred);
+        Node *h2 = mergeSort(mid->next, size2, cmp);
+        Node *h1 = mergeSort(h, size1, cmp);
 
         // Merge h1 and h2(they are both sorted and non-empty)
         unsigned cnt = 0;
         Node *newHead = h1;
         for (bool initLoop = true; ; initLoop = false) {
-            if (pred(h2->val, h1->val)) {
+            if (cmp(h2->val, h1->val)) {
                 if (initLoop) {
                     newHead = h2;
                 }

@@ -106,14 +106,14 @@ int main() {
 
 | Operation | Time |
 |:---------:|:----:|
-|[insertFront()](./include/tastylib/DoublyLinkedList.h#L144)|O(1)|
-|[removeFront()](./include/tastylib/DoublyLinkedList.h#L210)|O(1)|
-|[insertBack()](./include/tastylib/DoublyLinkedList.h#L160)|O(1)|
-|[removeBack()](./include/tastylib/DoublyLinkedList.h#L227)|O(1)|
-|[insert()](./include/tastylib/DoublyLinkedList.h#L110)|O(n)|
-|[remove()](./include/tastylib/DoublyLinkedList.h#L177)|O(n)|
-|[find()](./include/tastylib/DoublyLinkedList.h#L93)|O(n)|
-|[sort()](./include/tastylib/DoublyLinkedList.h#L245)|O(nlogn)|
+|[insertFront()](./include/tastylib/DoublyLinkedList.h#L146)|O(1)|
+|[removeFront()](./include/tastylib/DoublyLinkedList.h#L212)|O(1)|
+|[insertBack()](./include/tastylib/DoublyLinkedList.h#L162)|O(1)|
+|[removeBack()](./include/tastylib/DoublyLinkedList.h#L229)|O(1)|
+|[insert()](./include/tastylib/DoublyLinkedList.h#L112)|O(n)|
+|[remove()](./include/tastylib/DoublyLinkedList.h#L179)|O(n)|
+|[find()](./include/tastylib/DoublyLinkedList.h#L94)|O(n)|
+|[sort()](./include/tastylib/DoublyLinkedList.h#L246)|O(nlogn)|
 
 ##### Cost in practice
 
@@ -195,9 +195,9 @@ int main() {
 
 | Operation | Time |
 |:---------:|:----:|
-|[push()](./include/tastylib/BinaryHeap.h#L62)|O(nlogn)|
-|[top()](./include/tastylib/BinaryHeap.h#L78)|O(1)|
-|[pop()](./include/tastylib/BinaryHeap.h#L86)|O(nlogn)|
+|[push()](./include/tastylib/BinaryHeap.h#L63)|O(nlogn)|
+|[top()](./include/tastylib/BinaryHeap.h#L79)|O(1)|
+|[pop()](./include/tastylib/BinaryHeap.h#L87)|O(nlogn)|
 
 ##### Cost in practice
 
