@@ -20,6 +20,7 @@ Contents below show the data structures and algorithms available in this project
 |:----:|:------:|:-----------:|------|-----------|
 |[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|Support sorting.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
 |[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
+|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:heavy_check_mark:|A data structure that stores unique elements in no particular order, and which allow for fast retrieval of individual elements based on their value. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set/).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
 
 ### Algorithms
 
@@ -217,6 +218,12 @@ The program compares the time cost of `BinaryHeap` with `std::priority_queue`. I
 |:---------:|:-------------------:|:----------:|
 |push()|23 ns|22 ns|
 |pop()|498 ns|**254 ns**|
+
+### HashTable
+
+#### Usage
+
+#### Benchmark
 
 ### MD5
 

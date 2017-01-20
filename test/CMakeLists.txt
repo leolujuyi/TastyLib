@@ -17,6 +17,7 @@ include_directories(${gtest_SOURCE_DIR}/include)
 set(TEST_EXEC_LIST
     test_DoublyLinkedList
     test_BinaryHeap
+    test_HashTable
     test_MD5)
 
 foreach (exec ${TEST_EXEC_LIST})
