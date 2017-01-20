@@ -18,15 +18,15 @@ Contents below show the data structures and algorithms available in this project
 
 | Name | Source | Benchmarked | Note | Reference |
 |:----:|:------:|:-----------:|------|-----------|
-|[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|Support sorting.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
+|[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|A linked data structure that consists of a set of sequentially linked records. It also supports merge sort.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
 |[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
-|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:heavy_check_mark:|A data structure that stores unique elements in no particular order, and which allow for fast retrieval of individual elements based on their value. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set/).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
+|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:heavy_check_mark:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
 
 ### Algorithms
 
 | Name | Source | Benchmarked | Note | Reference |
 |:----:|:------:|:-----------:|------|-----------|
-|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A standard MD5 algorithm.|[Wikipedia](https://en.wikipedia.org/wiki/MD5) [Baike](http://baike.baidu.com/link?url=ZjuEzUZEfPbCX7smQOsY4lGu1lF6i5xPIwRqmWsTCRc8EdtLV_lRGDpEOOGE3OCgkMZuQp-kQ3lZdM_z6rTczq)|
+|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5) [Baike](http://baike.baidu.com/link?url=ZjuEzUZEfPbCX7smQOsY4lGu1lF6i5xPIwRqmWsTCRc8EdtLV_lRGDpEOOGE3OCgkMZuQp-kQ3lZdM_z6rTczq)|
 
 ## Installation
 
@@ -223,7 +223,27 @@ The program compares the time cost of `BinaryHeap` with `std::priority_queue`. I
 
 #### Usage
 
+```c++
+#include "tastylib/HashTable.h"
+
+using namespace tastylib;
+
+int main() {
+    
+    return 0;
+}
+```
+
 #### Benchmark
+
+##### Cost in theory
+
+| Operation | Time |
+|:---------:|:----:|
+
+##### Cost in practice
+
+Source: [benchmark_HashTable.cpp](./src/benchmark_HashTable.cpp)
 
 ### MD5
 
