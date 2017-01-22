@@ -28,7 +28,7 @@ Contents below show the data structures and algorithms available in this project
 |:----:|:------:|:-----------:|------|-----------|
 |[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5)|
 |[NPuzzle](#npuzzle)|[Unit test](./test/test_NPuzzle.cpp)<br />[NPuzzle.h](./include/tastylib/NPuzzle.h)|:heavy_check_mark:|A classic searching problem solved with [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm). A [GUI demo](https://github.com/stevennL/Puzzle) has been provided.|[Wikipedia](https://en.wikipedia.org/wiki/15_puzzle)|
-|[Sort](#sort)|[Unit test](./test/test_Sort.cpp)<br />[Sort.h](./include/tastylib/Sort.h)|:heavy_check_mark:|Including [quicksort](https://en.wikipedia.org/wiki/Quicksort).|[Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm)|
+|[Sort](#sort)|[Unit test](./test/test_Sort.cpp)<br />[Sort.h](./include/tastylib/Sort.h)|:heavy_check_mark:|Including [insertion sort](https://en.wikipedia.org/wiki/Insertion_sort), [quicksort](https://en.wikipedia.org/wiki/Quicksort), [quickselect](https://en.wikipedia.org/wiki/Quickselect).|[Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm)|
 
 ## Installation
 

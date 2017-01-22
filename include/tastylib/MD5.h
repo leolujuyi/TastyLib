@@ -34,7 +34,7 @@ public:
     Hash a message.
 
     @param msg The message to be hashed
-    @return The hashed string result
+    @return    The hashed string result
     */
     std::string hash(const std::string &msg) {
         UInt32 a = 0x67452301, b = 0xefcdab89;
@@ -85,9 +85,9 @@ private:
     Pad the string to make the length of the string satisfy: #(length) mod 512 = 0.
     The last 64 bits of the result is #(length of the original string) mod 2^64.
 
-    @param str The string to be filled up
+    @param str      The string to be filled up
     @param groupNum The number of the groups
-    @return The filled string stored in an array of 32-bit integer.
+    @return         The filled string stored in an array of 32-bit integer.
     */
     UInt32* pad(const std::string &str, UInt32 &groupNum) {
         UInt32 strLen = (UInt32)str.length();
@@ -119,7 +119,7 @@ private:
     /*
     Loop 64 times for each group and calculate a, b, c and d.
 
-    @param group The group to be processed
+    @param group   The group to be processed
     @param a/b/c/d The four 32-bit integer of hashed text
     */
     void loop(const UInt32 *const group, UInt32 &a, UInt32 &b, UInt32 &c, UInt32 &d) {
@@ -152,7 +152,7 @@ private:
     Map a 32-bit integer to its hexadecimal presentation.
 
     @param num The 32-bit integer
-    @return A string that stores the hexadecimal presentation
+    @return    A string that stores the hexadecimal presentation
     */
     std::string toHexStr(const UInt32 num) {
         std::string tmp, res = "";
@@ -171,9 +171,9 @@ private:
     /*
     Cycle shift left.
 
-    @param num The number to be shifted
+    @param num      The number to be shifted
     @param shiftCnt The shift count
-    @return The number after shifted
+    @return         The number after shifted
     */
     UInt32 cycleShiftLeft(const UInt32 num, const UInt32 shiftCnt) {
         return (num << shiftCnt) | (num >> (32 - shiftCnt));

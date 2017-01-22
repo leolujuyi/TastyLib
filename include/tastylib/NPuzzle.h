@@ -289,7 +289,7 @@ private:
     Compute the row number according to an index of one-dimension array.
 
     @param i The index
-    @return The row number in interval [0, row - 1]
+    @return  The row number in interval [0, row - 1]
     */
     SizeType getRow(const SizeType i) const {
         return i / col;
@@ -299,7 +299,7 @@ private:
     Compute the column number according to an index of one-dimension array.
 
     @param i The index
-    @return The row number in interval [0, col - 1]
+    @return  The row number in interval [0, col - 1]
     */
     SizeType getCol(const SizeType i) const {
         return i % col;

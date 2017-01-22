@@ -12,11 +12,11 @@ TASTYLIB_NS_BEGIN
 A heap data structure taking the form of a complete binary tree.
 
 @param Value The type of the value stored in the heap
-@param Pred  The type of the binary predicate to arrange tree
-             nodes. The heap ensures that for each node N in
-             the tree, Pred(N.value, N.parent.value) == true.
-             By default it uses operator '>=' as the predicate,
-             which makes it a min-root heap.
+@param Pred  The type of the binary predicate to arrange tree the nodes.
+             The heap ensures that for each node N in the tree,
+             N.value == N.parent.value OR Pred(N.value, N.parent.value) == true.
+             By default it uses operator '>=' as the predicate, which makes it
+             a min-root heap.
 */
 template <typename Value, typename Pred = std::greater_equal<Value>>
 class BinaryHeap {

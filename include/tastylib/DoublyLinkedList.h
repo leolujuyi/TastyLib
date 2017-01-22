@@ -10,9 +10,9 @@ TASTYLIB_NS_BEGIN
 Doubly linked list data structure.
 
 @param Value The type of list node value.
-@param Pred  A binary predicate that checks if two node values are equal.
-             If Pred(a, b) == true, then value 'a' and value 'b' are
-             considered equal.
+@param Pred  A binary predicate that checks if two node values
+             are equal. If Pred(a, b) == true, then value 'a'
+             and value 'b' are considered equal.
 */
 template<typename Value, typename Pred = std::equal_to<Value>>
 class DoublyLinkedList {
@@ -88,8 +88,8 @@ public:
     Find a node in the list.
 
     @param val_ The value of the node to be found
-    @return The first matching position of the node with value 'val_'.
-            If the node does not exist, return -1.
+    @return     The first matching position of the node with value 'val_'.
+                If the node does not exist, return -1.
     */
     int find(const Value &val_) const {
         Pred pred;
@@ -252,7 +252,8 @@ public:
 
     @param cmp A binary predicate to compare two node values. The sorting
                algorithm ensures that after its execution, for each node A
-               and its next node B in the list, cmp(A.value, B.value) == true.
+               and its next node B in the list, A.value == B.value OR
+               cmp(A.value, B.value) == true.
     */
     template<typename Comparator>
     void sort(const Comparator &cmp) {
@@ -268,11 +269,11 @@ private:
     Get a best node to perform inserting operation at a given position.
     The function is available only when the list is not empty.
 
-    @param pos The given position. Its values must lie in the interval (0, size).
+    @param pos      The given position. Its values must lie in the interval (0, size).
     @param prevNode If true, the returned node is previous to the node at
                     the given position. If false, the returned node is the
                     node at the given position.
-    @return The pointer to the best node.
+    @return         The pointer to the best node.
     */
     Node* getBestNode(const SizeType &pos, bool &prevNode) const {
         Node *res = nullptr;
@@ -299,7 +300,7 @@ private:
     @param h     The head of the list
     @param size_ The size of the list
     @param cmp   A binary predicate to compare two node values
-    @return The head pointer of the sorted list
+    @return      The head pointer of the sorted list
     */
     template<typename Comparator>
     Node* mergeSort(Node *h, const SizeType size_, const Comparator &cmp) {
