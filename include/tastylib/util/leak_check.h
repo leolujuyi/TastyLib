@@ -11,9 +11,8 @@
 #endif
 
 /*
-The function to check memory leaks. It is available
-only when compiled with Visual Studio under Debug model.
-Memory dump messages will be printed to the output window.
+The function is available only when compiled with Visual Studio under
+Debug model. Memory dump messages will be printed to the output window.
 */
 inline void checkMemoryLeaks() {
 #ifdef _CRTDBG_MAP_ALLOC

@@ -21,7 +21,7 @@ inline double elapse(const clock_t start) {
 Run a function and compute its execution time.
 
 @param f The function to be run
-@return The execution time of the function.
+@return  The execution time of the function.
 */
 inline double timing(const std::function<void()> &f) {
     auto start = clock();

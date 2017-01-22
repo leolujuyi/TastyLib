@@ -58,7 +58,8 @@ set(BENCHMARK_EXEC_LIST
     benchmark_DoublyLinkedList
     benchmark_BinaryHeap
     benchmark_MD5
-    benchmark_NPuzzle)
+    benchmark_NPuzzle
+    benchmark_Sort)
 
 foreach (exec ${BENCHMARK_EXEC_LIST})
     add_executable(${exec} ${PROJECT_SOURCE_DIR}/src/${exec}.cpp ${TASTYLIB_HEADERS})
