@@ -19,7 +19,8 @@ set(TEST_EXEC_LIST
     test_BinaryHeap
     test_HashTable
     test_MD5
-    test_NPuzzle)
+    test_NPuzzle
+    test_Sort)
 
 foreach (exec ${TEST_EXEC_LIST})
     add_executable(${exec} ${exec}.cpp ${TASTYLIB_HEADERS})
