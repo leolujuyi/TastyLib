@@ -36,8 +36,10 @@ Reference: https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
 */
 template<typename T>
 void randChange(std::vector<T> &arr) {
-    for (auto i = arr.size() - 1; i >= 1; --i) {
-        swap(arr[i], arr[randInt(0, i)]);
+    if (!arr.empty()) {
+        for (auto i = arr.size() - 1; i >= 1; --i) {
+            swap(arr[i], arr[randInt(0, (unsigned)i)]);
+        }
     }
 }
 
