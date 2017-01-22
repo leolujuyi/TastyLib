@@ -28,7 +28,7 @@ Contents below show the data structures and algorithms available in this project
 |:----:|:------:|:-----------:|------|-----------|
 |[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5)|
 |[NPuzzle](#npuzzle)|[Unit test](./test/test_NPuzzle.cpp)<br />[NPuzzle.h](./include/tastylib/NPuzzle.h)|:heavy_check_mark:|A classic searching problem solved with [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm). A [GUI demo](https://github.com/stevennL/Puzzle) has been provided.|[Wikipedia](https://en.wikipedia.org/wiki/15_puzzle)|
-|[Sort](#sort)|[Unit test](./test/test_Sort.cpp)<br />[Sort.h](./include/tastylib/Sort.h)|:heavy_check_mark:|Including [insertion sort](https://en.wikipedia.org/wiki/Insertion_sort), [quicksort](https://en.wikipedia.org/wiki/Quicksort), [quickselect](https://en.wikipedia.org/wiki/Quickselect).|[Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm)|
+|[Sort](#sort)|[Unit test](./test/test_Sort.cpp)<br />[Sort.h](./include/tastylib/Sort.h)|:heavy_check_mark:|Including [insertion sort](https://en.wikipedia.org/wiki/Insertion_sort), [selection sort](https://en.wikipedia.org/wiki/Selection_sort), [heapsort](https://en.wikipedia.org/wiki/Heapsort), [quicksort](https://en.wikipedia.org/wiki/Quicksort), [quickselect](https://en.wikipedia.org/wiki/Quickselect). For [merge sort](https://en.wikipedia.org/wiki/Merge_sort), please refer to [DoublyLinkedList.sort()](#cost-in-theory).|[Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm)|
 
 ## Installation
 
@@ -115,7 +115,7 @@ int main() {
 |[insert()](./include/tastylib/DoublyLinkedList.h#L112)|O(n)|
 |[remove()](./include/tastylib/DoublyLinkedList.h#L179)|O(n)|
 |[find()](./include/tastylib/DoublyLinkedList.h#L94)|O(n)|
-|[sort()](./include/tastylib/DoublyLinkedList.h#L246)|O(nlogn)|
+|[sort()](./include/tastylib/DoublyLinkedList.h#L246) (merge sort)|O(nlogn)|
 
 ##### Cost in practice
 
@@ -396,6 +396,24 @@ Benchmark of NPuzzle finished.
 using namespace tastylib;
 
 int main() {
+    const unsigned n = 5;
+    int arr[n] = {5, 4, 3, 2, 1};
+
+    {   // Sort.
+        // Aftering running each of the function below,
+        // the array's content will be: [1, 2, 3, 4, 5]
+        insertionSort(arr, n);
+        selectionSort(arr, n);
+        heapSort(arr, n);
+        quickSort(arr, 0, n - 1);
+    }
+
+    {   // Find the kth smallest element.
+        // After running the function below, the kth
+        // smallest element will be stored at arr[k].
+        int k = 1;  // Find the second smallest element
+        quickSelect(arr, 0, n - 1, k);
+    }
 
     return 0;
 }
@@ -403,7 +421,46 @@ int main() {
 
 #### Benchmark
 
+##### Cost in theory
+
+| Operation | Time | Stable |
+|:---------:|:----:|:------:|
+|[insertionSort()](./include/tastylib/Sort.h#L18)|O(n^2)|:heavy_check_mark:|
+|[selectionSort()](./include/tastylib/Sort.h#L39)|O(n^2)|:x:|
+|[heapSort()](./include/tastylib/Sort.h#L61)|O(nlogn)|:x:|
+|[mergeSort()](#cost-in-theory)|O(nlogn)|:heavy_check_mark:|
+|[quickSort()](./include/tastylib/Sort.h#L108)|O(nlogn)|:x:|
+|[quickSelect()](./include/tastylib/Sort.h#L142)|O(n)|-|
+
+##### Cost in practice
+
 Source: [benchmark_Sort.cpp](./src/benchmark_Sort.cpp)
+
+The program calculates the average time cost to sort or find the kth element in an array of `100000` elements. Here are the results under different environments:
+
+###### Ubuntu 16.04 64-bit / g++ 5.4
+
+| Operation | Time |
+|:---------:|:----:|
+|std::sort()|6.41 ms|
+|insertionSort()|1691.64 ms|
+|selectionSort()|12220.25 ms|
+|heapSort()|10.61 ms|
+|quickSort()|7.07 ms|
+|std::nth_element()|0.79 ms|
+|quickSelect()|0.86 ms|
+
+###### Windows 10 64-bit / Visual Studio 14 2015
+
+| Operation | Time |
+|:---------:|:----:|
+|std::sort()|8.34 ms|
+|insertionSort()|1559.92 ms|
+|selectionSort()|4355.90 ms|
+|heapSort()|11.56 ms|
+|quickSort()|6.79 ms|
+|std::nth_element()|1.08 ms|
+|quickSelect()|0.88 ms|
 
 ## License
 
