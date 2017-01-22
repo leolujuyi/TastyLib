@@ -12,7 +12,7 @@ It is also a **header-only** library, which means that you could just copy the `
 
 ## Outline
 
-Contents below show the data structures and algorithms available in this project. Just click the links at the `name` column to see the details of their usages and benchmarks.
+Contents below show the data structures and algorithms available in this project. Just click the links at the `name` column to see the details of their usages and benchmarks. All benchmarks are run with the `-O2` compiler flag under the `Release` version.
 
 ### Data Structures
 
@@ -20,13 +20,14 @@ Contents below show the data structures and algorithms available in this project
 |:----:|:------:|:-----------:|------|-----------|
 |[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|A linked data structure that consists of a set of sequentially linked records. It also supports merge sort.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
 |[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
-|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:heavy_multiplication_x:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
+|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:x:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
 
 ### Algorithms
 
 | Name | Source | Benchmarked | Note | Reference |
 |:----:|:------:|:-----------:|------|-----------|
-|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5) [Baike](http://baike.baidu.com/link?url=ZjuEzUZEfPbCX7smQOsY4lGu1lF6i5xPIwRqmWsTCRc8EdtLV_lRGDpEOOGE3OCgkMZuQp-kQ3lZdM_z6rTczq)|
+|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5)|
+|[NPuzzle](#npuzzle)|[Unit test](./test/test_NPuzzle.cpp)<br />[NPuzzle.h](./include/tastylib/NPuzzle.h)|:heavy_check_mark:|A classic searching problem solved with [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm). A [GUI demo](https://github.com/stevennL/Puzzle) has been provided.|[Wikipedia](https://en.wikipedia.org/wiki/15_puzzle)|
 
 ## Installation
 
@@ -297,6 +298,92 @@ The program uses the MD5 algorithm to hash a fixed message of 200 MB for several
 |-------------|:------------:|
 |Ubuntu 16.04 64-bit / g++ 5.4|899 ms|
 |Windows 10 64-bit / Visual Studio 14 2015|1229 ms|
+
+### NPuzzle
+
+#### Usage
+
+```c++
+#include "tastylib/NPuzzle.h"
+
+using namespace tastylib;
+
+int main() {
+
+    // The beginning node and the ending node of a 3*3 puzzle problem.
+    // Number '0' indicates the empty grid and number '1-8' denote other eight grids.
+    PuzzleNode<> beg({0, 2, 3, 1, 4, 5, 6, 7, 8}, 3, 3);
+    PuzzleNode<> end({1, 2, 3, 4, 0, 5, 6, 7, 8}, 3, 3);
+
+    // Solve the problem
+    NPuzzle<> puzzle(beg, end);
+    puzzle.solve();
+
+    // List 'path' stores the move directions from the beginning node
+    // to the ending node. Its contents must be [DOWN, RIGHT].
+    std::list<Direction> path = puzzle.getPath();
+
+    return 0;
+}
+```
+
+#### Benchmark
+
+Source: [benchmark_NPuzzle.cpp](./src/benchmark_NPuzzle.cpp)
+
+The program solves `3*3`, `4*4`, `5*5` and `6*6` puzzle problems respectively and generates the information of overheads. Here are the outputs of the benchmark under different environments:
+
+###### Ubuntu 16.04 64-bit / g++ 5.4
+
+```
+Benchmark of NPuzzle running...
+
+Benchmarking 3*3 puzzle...
+Beg: {0, 6, 4, 3, 8, 2, 7, 5, 1}
+End: {6, 5, 7, 3, 1, 2, 8, 4, 0}
+Searching...
+Searched nodes: 161
+     Time cost: 1 ms
+    Efficiency: 102.092581 node/ms
+   Path length: 52
+Solution check: pass
+Benchmark of 3*3 puzzle finished.
+
+Benchmarking 4*4 puzzle...
+Beg: {3, 0, 2, 13, 9, 1, 5, 6, 14, 11, 4, 10, 12, 7, 15, 8}
+End: {4, 2, 9, 3, 13, 0, 5, 6, 15, 12, 11, 14, 8, 10, 1, 7}
+Searching...
+Searched nodes: 1330
+     Time cost: 13 ms
+    Efficiency: 98.089830 node/ms
+   Path length: 117
+Solution check: pass
+Benchmark of 4*4 puzzle finished.
+
+Benchmarking 5*5 puzzle...
+Beg: {6, 16, 17, 0, 8, 3, 2, 11, 5, 9, 4, 21, 13, 23, 18, 15, 7, 1, 20, 14, 22, 12, 10, 19, 24}
+End: {12, 10, 19, 22, 2, 5, 0, 20, 3, 4, 21, 6, 18, 13, 24, 11, 1, 8, 9, 7, 15, 14, 17, 16, 23}
+Searching...
+Searched nodes: 3676
+     Time cost: 43 ms
+    Efficiency: 84.968680 node/ms
+   Path length: 275
+Solution check: pass
+Benchmark of 5*5 puzzle finished.
+
+Benchmarking 6*6 puzzle...
+Beg: {15, 3, 1, 4, 5, 13, 18, 2, 14, 0, 9, 10, 8, 27, 20, 24, 23, 16, 26, 30, 6, 34, 25, 21, 31, 28, 11, 12, 7, 29, 32, 19, 35, 17, 22, 33}
+End: {13, 6, 9, 2, 27, 16, 11, 14, 12, 15, 21, 17, 7, 20, 32, 4, 5, 3, 10, 18, 8, 19, 29, 23, 1, 26, 25, 24, 34, 33, 31, 35, 30, 0, 22, 28}
+Searching...
+Searched nodes: 69271
+     Time cost: 1088 ms
+    Efficiency: 63.638602 node/ms
+   Path length: 450
+Solution check: pass
+Benchmark of 6*6 puzzle finished.
+
+Benchmark of NPuzzle finished.
+```
 
 ## License
 

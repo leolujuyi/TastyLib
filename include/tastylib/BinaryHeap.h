@@ -65,7 +65,7 @@ public:
             tree.resize(tree.size() << 1);  // Expand space
         }
         // The new element percolates up in the heap
-        int i;
+        SizeType i;
         for (i = ++size; i != 1 && !pred(val, tree[i >> 1]); i >>= 1) {
             tree[i] = tree[i >> 1];
         }
