@@ -71,9 +71,10 @@ void heapSort(Ele *const arr, const unsigned n) {
 
 /*
 Return the pivot element in an array. This function is used in quickSort()
-and quickSelect(). The algorithm is based on median-of-three pivoting. It
-ensures that after its execution, arr[left] <= arr[mid] <= arr[right] and
-the pivot element will be stored in arr[right - 1].
+and quickSelect(). The algorithm is based on the median-of-three pivoting.
+It ensures that after its execution, Pred(arr[left], arr[mid]) == true AND
+Pred(arr[mid], arr[right]) == true. The pivot element will be stored at
+arr[right - 1].
 
 @param a     The array to be processed
 @param left  The beginning index of the array to be processed

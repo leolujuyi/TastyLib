@@ -21,6 +21,7 @@ Contents below show the data structures and algorithms available in this project
 |[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|A linked data structure that consists of a set of sequentially linked records. It also supports merge sort.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
 |[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
 |[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:x:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
+|[AVLTree](#avltree)|[Unit test](./test/test_AVLTree.cpp)<br />[AVLTree.h](./include/tastylib/AVLTree.h)|:heavy_check_mark:|A self-balancing binary search tree.|[Wikipedia](https://en.wikipedia.org/wiki/AVL_tree)|
 
 ### Algorithms
 
@@ -270,6 +271,78 @@ int main() {
 
 Note that there are many different ways to implement the hash table. The C++ standard library implements the `std::unordered_set` as a **dynamic** hash table, which means that its bucket amount changes dynamically when performing `insert()` and `remove()/erase()` operations(i.e., using [extendible hashing](https://en.wikipedia.org/wiki/Extendible_hashing) or [linear hashing](https://en.wikipedia.org/wiki/Linear_hashing)). While in TastyLib, for simplicity, the hash table is **static** so its bucket amount is fixed after initialized. Since different implementations have different pros and cons, it's hard to give a convincing benchmark result.
 
+### AVLTree
+
+#### Usage
+
+```c++
+#include "tastylib/AVLTree.h"
+#include <string>
+
+using namespace tastylib;
+
+int main() {
+    AVLTree<int> tree;
+
+    auto isEmpty = tree.isEmpty();  // isEmpty == true
+
+    tree.insert(1);
+    tree.insert(2);
+    tree.insert(3);
+    tree.insert(3);
+
+    std::string str1 = tree.preorder();   // str1 == "{2, 1, 3, 3}"
+    std::string str2 = tree.inorder();    // str2 == "{1, 2, 3, 3}"
+    std::string str3 = tree.postorder();  // str3 == "{1, 3, 3, 2}"
+
+    auto size1 = tree.getSize();  // size1 == 4
+    auto found1 = tree.has(3);    // found1 == true
+
+    tree.remove(3);
+
+    std::string str4 = tree.preorder();  // str4 == "{2, 1}"
+
+    auto size2 = tree.getSize();  // size2 == 2
+    auto found2 = tree.has(3);    // found2 == false
+
+    return 0;
+}
+```
+
+#### Benchmark
+
+##### Cost in theory
+
+| Operation | Time |
+|:---------:|:----:|
+|[find()](./include/tastylib/AVLTree.h#L191)|O(logn)|
+|[insert()](./include/tastylib/AVLTree.h#L253)|O(logn)|
+|[remove()](./include/tastylib/AVLTree.h#L287)|O(logn)|
+
+##### Cost in practice
+
+Source: [benchmark_AVLTree.cpp](./src/benchmark_AVLTree.cpp)
+
+The program compares the time cost of `AVLTree` with `std::multiset`. It calculates the average time cost of each operation. Note that the `std::multiset` is implemented as a [red-black tree](https://en.wikipedia.org/wiki/Red%E2%80%93black_tree), which is faster than the AVL tree when performing `insert()` and `remove()` operations(but slower when performing `find()`). Here are the results under different environments:
+
+###### Ubuntu 16.04 64-bit / g++ 5.4
+
+| Operation | std::multiset | AVLTree |
+|:---------:|:-------------:|:-------:|
+|find()|1245 ns|1056 ns|
+|insert()|1241 ns|1447 ns|
+|remove()|1289 ns|1728 ns|
+
+###### Windows 10 64-bit / Visual Studio 14 2015
+
+| Operation | std::multiset | AVLTree |
+|:---------:|:-------------:|:-------:|
+|find()|1597 ns|168 ns*|
+|insert()|1570 ns|1260 ns|
+|remove()|233 ns|436 ns|
+
+**(Items marked with * may be unreliable.)**
+
 ### MD5
 
 #### Usage
@@ -429,8 +502,8 @@ int main() {
 |[selectionSort()](./include/tastylib/Sort.h#L39)|O(n^2)|:x:|
 |[heapSort()](./include/tastylib/Sort.h#L61)|O(nlogn)|:x:|
 |[mergeSort()](#cost-in-theory)|O(nlogn)|:heavy_check_mark:|
-|[quickSort()](./include/tastylib/Sort.h#L108)|O(nlogn)|:x:|
-|[quickSelect()](./include/tastylib/Sort.h#L142)|O(n)|-|
+|[quickSort()](./include/tastylib/Sort.h#L109)|O(nlogn)|:x:|
+|[quickSelect()](./include/tastylib/Sort.h#L143)|O(n)|-|
 
 ##### Cost in practice
 

@@ -57,6 +57,7 @@ endif ()
 set(BENCHMARK_EXEC_LIST
     benchmark_DoublyLinkedList
     benchmark_BinaryHeap
+    benchmark_AVLTree
     benchmark_MD5
     benchmark_NPuzzle
     benchmark_Sort)

@@ -82,6 +82,7 @@ TEST(NPuzzle, AStar) {
     end.shuffle();
     NPuzzle<> puzzle(beg, end);
     puzzle.solve();
+    EXPECT_FALSE(beg == end);
     const auto &path = puzzle.getPath();
     for (const auto &d : path) {
         beg.move(d);
