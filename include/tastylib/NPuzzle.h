@@ -286,9 +286,9 @@ private:
     PuzzleNode *parent = nullptr;
 
     /*
-    Compute the row number according to an index of one-dimension array.
+    Compute the row number according to a given index of one-dimension array.
 
-    @param i The index
+    @param i The given index
     @return  The row number in interval [0, row - 1]
     */
     SizeType getRow(const SizeType i) const {
@@ -296,9 +296,9 @@ private:
     }
 
     /*
-    Compute the column number according to an index of one-dimension array.
+    Compute the column number according to a given index of one-dimension array.
 
-    @param i The index
+    @param i The given index
     @return  The row number in interval [0, col - 1]
     */
     SizeType getCol(const SizeType i) const {
@@ -307,7 +307,7 @@ private:
 };
 
 /*
-Class to solve NPuzzle problem.
+Class to solve the n-puzzle problem.
 @param Int Type of signed integer
 */
 template<typename Int = short>

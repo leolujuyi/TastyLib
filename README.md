@@ -429,8 +429,8 @@ int main() {
 |[selectionSort()](./include/tastylib/Sort.h#L39)|O(n^2)|:x:|
 |[heapSort()](./include/tastylib/Sort.h#L61)|O(nlogn)|:x:|
 |[mergeSort()](#cost-in-theory)|O(nlogn)|:heavy_check_mark:|
-|[quickSort()](./include/tastylib/Sort.h#L108)|O(nlogn)|:x:|
-|[quickSelect()](./include/tastylib/Sort.h#L142)|O(n)|-|
+|[quickSort()](./include/tastylib/Sort.h#L109)|O(nlogn)|:x:|
+|[quickSelect()](./include/tastylib/Sort.h#L143)|O(n)|-|
 
 ##### Cost in practice
 
