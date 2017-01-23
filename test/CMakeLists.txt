@@ -18,6 +18,7 @@ set(TEST_EXEC_LIST
     test_DoublyLinkedList
     test_BinaryHeap
     test_HashTable
+    test_AVLTree
     test_MD5
     test_NPuzzle
     test_Sort)

@@ -21,6 +21,7 @@ Contents below show the data structures and algorithms available in this project
 |[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|A linked data structure that consists of a set of sequentially linked records. It also supports merge sort.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
 |[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
 |[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:x:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
+|[AVLTree](#avltree)|[Unit test](./test/test_AVLTree.cpp)<br />[AVLTree.h](./include/tastylib/AVLTree.h)|:heavy_check_mark:|A self-balancing binary search tree.|[Wikipedia](https://en.wikipedia.org/wiki/AVL_tree)|
 
 ### Algorithms
 
@@ -269,6 +270,32 @@ int main() {
 ##### Cost in practice
 
 Note that there are many different ways to implement the hash table. The C++ standard library implements the `std::unordered_set` as a **dynamic** hash table, which means that its bucket amount changes dynamically when performing `insert()` and `remove()/erase()` operations(i.e., using [extendible hashing](https://en.wikipedia.org/wiki/Extendible_hashing) or [linear hashing](https://en.wikipedia.org/wiki/Linear_hashing)). While in TastyLib, for simplicity, the hash table is **static** so its bucket amount is fixed after initialized. Since different implementations have different pros and cons, it's hard to give a convincing benchmark result.
+
+### AVLTree
+
+#### Usage
+
+```c++
+#include "tastylib/AVLTree.h"
+
+using namespace tastylib;
+
+int main() {
+
+    return 0;
+}
+```
+
+#### Benchmark
+
+##### Cost in theory
+
+| Operation | Time | Stable |
+|:---------:|:----:|:------:|
+
+##### Cost in practice
+
+Source: [benchmark_AVLTree.cpp](./src/benchmark_AVLTree.cpp)
 
 ### MD5
 
