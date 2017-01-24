@@ -12,9 +12,9 @@ TASTYLIB_NS_BEGIN
 Convert an object to a std::string object.
 */
 template<typename T>
-std::string toString(const T &data) {
+std::string toString(const T &obj) {
     std::ostringstream oss;
-    oss << std::setiosflags(std::ios::fixed) << data;
+    oss << std::setiosflags(std::ios::fixed) << obj;
     return oss.str();
 }
 

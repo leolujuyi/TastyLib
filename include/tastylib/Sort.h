@@ -15,11 +15,12 @@ The insertion sort algorithm to sort an unordered array.
 @param n   The amount of elements in the array
 */
 template<typename Ele, typename Pred = std::less<Ele>>
-void insertionSort(Ele *const arr, const unsigned n) {
+void insertionSort(Ele *const arr, const std::size_t n) {
     Pred pred;
-    for (unsigned i = 1; i < n; ++i) {
+    for (std::size_t i = 1; i < n; ++i) {
         if (!pred(arr[i - 1], arr[i])) {
-            Ele tmp = arr[i], j = i;
+            Ele tmp = arr[i];
+            std::size_t j = i;
             while (j >= 1 && pred(tmp, arr[j - 1])) {
                 arr[j] = arr[j - 1];
                 --j;
@@ -36,11 +37,11 @@ The selection sort algorithm to sort an unordered array.
 @param n   The amount of elements in the array
 */
 template<typename Ele, typename Pred = std::less<Ele>>
-void selectionSort(Ele *const arr, const unsigned n) {
+void selectionSort(Ele *const arr, const std::size_t n) {
     Pred pred;
-    for (unsigned i = 0; i < n - 1; ++i) {
-        unsigned minOrMax = i;
-        for (unsigned k = i; k < n; ++k) {
+    for (std::size_t i = 0; i < n - 1; ++i) {
+        std::size_t minOrMax = i;
+        for (std::size_t k = i; k < n; ++k) {
             if (pred(arr[k], arr[minOrMax])) {
                 minOrMax = k;
             }
@@ -58,12 +59,12 @@ The heapsort algorithm to sort an unordered array.
 @param n   The amount of elements in the array
 */
 template<typename Ele, typename Pred = std::greater_equal<Ele>>
-void heapSort(Ele *const arr, const unsigned n) {
+void heapSort(Ele *const arr, const std::size_t n) {
     BinaryHeap<Ele, Pred> heap;
-    for (unsigned i = 0; i < n; ++i) {
+    for (std::size_t i = 0; i < n; ++i) {
         heap.push(arr[i]);
     }
-    for (unsigned i = 0; i < n; ++i) {
+    for (std::size_t i = 0; i < n; ++i) {
         arr[i] = heap.top();
         heap.pop();
     }
@@ -82,9 +83,9 @@ arr[right - 1].
 @return      The pivot element
 */
 template<typename Ele, typename Pred = std::less<Ele>>
-Ele pivot(Ele *const arr, const unsigned left, unsigned right) {
+Ele pivot(Ele *const arr, const std::size_t left, std::size_t right) {
     Pred pred;
-    unsigned mid = (left + right) / 2;
+    std::size_t mid = (left + right) / 2;
     if (pred(arr[mid], arr[left])) {
         swap(arr[mid], arr[left]);
     }
@@ -106,11 +107,11 @@ The quicksort algorithm to sort an unordered array.
 @param right The ending index of the array to be sorted
 */
 template<typename Ele, typename Pred = std::less<Ele>>
-void quickSort(Ele *const arr, const unsigned left, const unsigned right) {
+void quickSort(Ele *const arr, const std::size_t left, const std::size_t right) {
     Pred pred;
     if (left + 10 <= right) {
         Ele p = pivot<Ele, Pred>(arr, left, right);
-        unsigned i = left, j = right - 1;
+        std::size_t i = left, j = right - 1;
         while (true) {
             while (pred(arr[++i], p)) {}
             while (pred(p, arr[--j])) {}
@@ -140,11 +141,14 @@ stored at arr[k].
 @param k     The kth element to find
 */
 template<typename Ele, typename Pred = std::less<Ele>>
-void quickSelect(Ele *const arr, const unsigned left, const unsigned right, const unsigned k) {
+void quickSelect(Ele *const arr,
+                 const std::size_t left,
+                 const std::size_t right,
+                 const std::size_t k) {
     Pred pred;
     if (left + 10 <= right) {
         Ele p = pivot<Ele, Pred>(arr, left, right);
-        unsigned i = left, j = right - 1;
+        std::size_t i = left, j = right - 1;
         while (true) {
             while (pred(arr[++i], p)) {}
             while (pred(p, arr[--j])) {}

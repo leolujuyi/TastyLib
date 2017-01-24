@@ -55,6 +55,7 @@ endif ()
 
 # Add benchmark executables
 set(BENCHMARK_EXEC_LIST
+    sample
     benchmark_DoublyLinkedList
     benchmark_BinaryHeap
     benchmark_AVLTree

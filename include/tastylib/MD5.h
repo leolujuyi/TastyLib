@@ -4,7 +4,6 @@
 #include "tastylib/internal/base.h"
 #include <string>
 #include <vector>
-#include <cstdint>
 
 TASTYLIB_NS_BEGIN
 
@@ -14,7 +13,8 @@ Class to run a standard MD5 algorithm.
 @param UInt32 Type of 32-bit unsigned integer
 @param UInt64 Type of 64-bit unsigned integer
 */
-template<typename UInt32 = uint32_t, typename UInt64 = uint64_t>
+template<typename UInt32 = std::uint32_t,
+         typename UInt64 = std::uint64_t>
 class MD5 {
 public:
     /*
@@ -43,7 +43,7 @@ public:
         UInt32 *str = pad(msg, groupNum);
         for (UInt32 i = 0; i < groupNum; ++i) {
             UInt32 group[16];  // Each group contains 16 32-bit intergers
-            for (auto j = 0; j < 16; ++j) {
+            for (int j = 0; j < 16; ++j) {
                 group[j] = str[(i << 4) + j];
             }
             loop(group, a, b, c, d);
@@ -125,7 +125,7 @@ private:
     void loop(const UInt32 *const group, UInt32 &a, UInt32 &b, UInt32 &c, UInt32 &d) {
         UInt32 f, g;
         UInt32 A = a, B = b, C = c, D = d;
-        for (auto i = 0; i < 64; ++i) {  // Loop for 4 turns, process 16 times in each turn
+        for (int i = 0; i < 64; ++i) {  // Loop for 4 turns, process 16 times in each turn
             if (i < 16) {
                 f = (B & C) | ((~B) & D);
                 g = i;
@@ -139,7 +139,7 @@ private:
                 f = C ^ (B | (~D));
                 g = (7 * i) % 16;
             }
-            auto tmp = D;
+            UInt32 tmp = D;
             D = C;
             C = B;
             B = B + cycleShiftLeft((A + f + k[i] + group[g]), s[i]);

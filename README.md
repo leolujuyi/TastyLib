@@ -18,18 +18,20 @@ Contents below show the data structures and algorithms available in this project
 
 | Name | Source | Benchmarked | Note | Reference |
 |:----:|:------:|:-----------:|------|-----------|
-|[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|:heavy_check_mark:|A linked data structure that consists of a set of sequentially linked records. It also supports merge sort.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
-|[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|:heavy_check_mark:|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
-|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|:x:|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
-|[AVLTree](#avltree)|[Unit test](./test/test_AVLTree.cpp)<br />[AVLTree.h](./include/tastylib/AVLTree.h)|:heavy_check_mark:|A self-balancing binary search tree.|[Wikipedia](https://en.wikipedia.org/wiki/AVL_tree)|
+|[DoublyLinkedList](#doublylinkedlist)|[Unit test](./test/test_DoublyLinkedList.cpp)<br />[DoublyLinkedList.h](./include/tastylib/DoublyLinkedList.h)|Yes|A linked data structure that consists of a set of sequentially linked records. It also supports merge sort.|[Wikipedia](https://en.wikipedia.org/wiki/Doubly_linked_list)|
+|[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|Yes|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
+|[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|No|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
+|[AVLTree](#avltree)|[Unit test](./test/test_AVLTree.cpp)<br />[AVLTree.h](./include/tastylib/AVLTree.h)|Yes|A self-balancing binary search tree.|[Wikipedia](https://en.wikipedia.org/wiki/AVL_tree)|
+|[Graph](#graph)|[Unit test](./test/test_Graph.cpp)<br />[Graph.h](./include/tastylib/Graph.h)|No|A data structure to implement the directed/undirected graph concepts from mathematics. It stores a graph in an adjacency list or matrix.|[Wikipedia](https://en.wikipedia.org/wiki/Graph_(abstract_data_type))|
 
 ### Algorithms
 
 | Name | Source | Benchmarked | Note | Reference |
 |:----:|:------:|:-----------:|------|-----------|
-|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|:heavy_check_mark:|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5)|
-|[NPuzzle](#npuzzle)|[Unit test](./test/test_NPuzzle.cpp)<br />[NPuzzle.h](./include/tastylib/NPuzzle.h)|:heavy_check_mark:|A classic searching problem solved with [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm). A [GUI demo](https://github.com/stevennL/Puzzle) has been provided.|[Wikipedia](https://en.wikipedia.org/wiki/15_puzzle)|
-|[Sort](#sort)|[Unit test](./test/test_Sort.cpp)<br />[Sort.h](./include/tastylib/Sort.h)|:heavy_check_mark:|Including [insertion sort](https://en.wikipedia.org/wiki/Insertion_sort), [selection sort](https://en.wikipedia.org/wiki/Selection_sort), [heapsort](https://en.wikipedia.org/wiki/Heapsort), [quicksort](https://en.wikipedia.org/wiki/Quicksort), [quickselect](https://en.wikipedia.org/wiki/Quickselect). For [merge sort](https://en.wikipedia.org/wiki/Merge_sort), please refer to [DoublyLinkedList.sort()](#cost-in-theory).|[Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm)|
+|[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|Yes|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5)|
+|[NPuzzle](#npuzzle)|[Unit test](./test/test_NPuzzle.cpp)<br />[NPuzzle.h](./include/tastylib/NPuzzle.h)|Yes|A classic searching problem solved with [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm). A [GUI demo](https://github.com/stevennL/Puzzle) has been provided.|[Wikipedia](https://en.wikipedia.org/wiki/15_puzzle)|
+|[Sort](#sort)|[Unit test](./test/test_Sort.cpp)<br />[Sort.h](./include/tastylib/Sort.h)|Yes|Including [insertion sort](https://en.wikipedia.org/wiki/Insertion_sort), [selection sort](https://en.wikipedia.org/wiki/Selection_sort), [heapsort](https://en.wikipedia.org/wiki/Heapsort), [quicksort](https://en.wikipedia.org/wiki/Quicksort), [quickselect](https://en.wikipedia.org/wiki/Quickselect). For [merge sort](https://en.wikipedia.org/wiki/Merge_sort), please refer to [DoublyLinkedList.sort()](#cost-in-theory).|[Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm)|
+|[Dijkstra](#dijkstra)|[Unit test](./test/test_Dijkstra.cpp)<br />[Dijkstra.h](./include/tastylib/Dijkstra.h)|No|An algorithm to find the shortest paths between vertices in a graph.|[Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)|
 
 ## Installation
 
@@ -343,6 +345,46 @@ The program compares the time cost of `AVLTree` with `std::multiset`. It calcula
 
 **(Items marked with * may be unreliable.)**
 
+### Graph
+
+#### Usage
+
+```c++
+#include "tastylib/Graph.h"
+#include <string>
+
+using namespace tastylib;
+
+int main() {
+
+    // Create a graph that has three vertices.
+    // Each vertex stores a string object.
+    Graph<std::string> graph(3);
+
+    // Modify the string object in each vertex
+    graph[0] = "I am vertex 0.";
+    graph[1] = "I am vertex 1.";
+    graph[2] = "I am vertex 2.";
+
+    // Add edges
+    graph.setWeight(0, 1, 10);
+    graph.setWeight(0, 2, 20);
+    graph.setWeight(1, 2, 30);
+
+    // Get edge weights
+    auto w0 = graph.getWeight(0, 1);  // w0 == 10
+    auto w1 = graph.getWeight(0, 2);  // w1 == 20
+    auto w2 = graph.getWeight(1, 2);  // w2 == 30
+
+    // Get adjacent vertices
+    auto n0 = graph.getNeighbors(0);  // n0 == [1, 2]
+    auto n1 = graph.getNeighbors(1);  // n1 == [2]
+    auto n2 = graph.getNeighbors(2);  // n2 == []
+
+    return 0;
+}
+```
+
 ### MD5
 
 #### Usage
@@ -498,12 +540,12 @@ int main() {
 
 | Operation | Time | Stable |
 |:---------:|:----:|:------:|
-|[insertionSort()](./include/tastylib/Sort.h#L18)|O(n^2)|:heavy_check_mark:|
-|[selectionSort()](./include/tastylib/Sort.h#L39)|O(n^2)|:x:|
-|[heapSort()](./include/tastylib/Sort.h#L61)|O(nlogn)|:x:|
-|[mergeSort()](#cost-in-theory)|O(nlogn)|:heavy_check_mark:|
-|[quickSort()](./include/tastylib/Sort.h#L109)|O(nlogn)|:x:|
-|[quickSelect()](./include/tastylib/Sort.h#L143)|O(n)|-|
+|[insertionSort()](./include/tastylib/Sort.h#L18)|O(n^2)|Yes|
+|[selectionSort()](./include/tastylib/Sort.h#L40)|O(n^2)|No|
+|[heapSort()](./include/tastylib/Sort.h#L62)|O(nlogn)|No|
+|[mergeSort()](#cost-in-theory)|O(nlogn)|Yes|
+|[quickSort()](./include/tastylib/Sort.h#L110)|O(nlogn)|No|
+|[quickSelect()](./include/tastylib/Sort.h#L144)|O(n)|-|
 
 ##### Cost in practice
 
@@ -534,6 +576,42 @@ The program calculates the average time cost to sort or find the kth element in 
 |quickSort()|6.79 ms|
 |std::nth_element()|1.08 ms|
 |quickSelect()|0.88 ms|
+
+### Dijkstra
+
+#### Usage
+
+```c++
+#include "tastylib/Dijkstra.h"
+#include <string>
+
+using namespace tastylib;
+
+int main() {
+    DijkGraph<string> graph(3);  // Create a graph that has three vertices
+
+    graph[0].val = "Alice";  // Vertex 0 denotes Alice's home
+    graph[1].val = "Darth";  // Vertex 1 denotes Darth's home
+    graph[2].val = "Bob";    // Vertex 2 denotes Bob' home
+
+    graph.setWeight(0, 1, 5);   // Distance from Alice's home to Darth's is 5
+    graph.setWeight(0, 2, 20);  // Distance from Alice's home to Bob's is 20
+    graph.setWeight(1, 2, 5);   // Distance from Darth's home to Bob's is 5
+
+    // Run Dijkstra's algorithm to compute the
+    // shortest path from Alice's home to others'.
+    dijkstra(graph, 0);
+
+    // Now I know the minimum distance from Alice's home to Bob's home, which is 10.
+    auto distToBob = graph[2].dist;  // distToBob == 10
+
+    // I also know the minimum path to Bob's home is "0->1->2", namely "Alice->Darth->Bob".
+    auto prev1 = graph[2].prev;      // prev1 == 1
+    auto prev2 = graph[prev1].prev;  // prev2 == 0
+
+    return 0;
+}
+```
 
 ## License
 
