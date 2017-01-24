@@ -26,7 +26,7 @@ public:
             : val(v), prev(p), next(n) {}
     };
 
-    typedef unsigned SizeType;
+    typedef std::size_t SizeType;
 
     /*
     Destructor.
@@ -96,7 +96,7 @@ public:
         SizeType pos = 0;
         for (Node *tmp = head; tmp; tmp = tmp->next, ++pos) {
             if (pred(tmp->val, val_)) {
-                return pos;
+                return (int)pos;
             }
         }
         return -1;
@@ -320,7 +320,7 @@ private:
         Node *h1 = mergeSort(h, size1, cmp);
 
         // Merge h1 and h2(they are both sorted and non-empty)
-        unsigned cnt = 0;
+        SizeType cnt = 0;
         Node *newHead = h1;
         for (bool initLoop = true; ; initLoop = false) {
             if (cmp(h2->val, h1->val)) {

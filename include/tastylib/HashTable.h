@@ -23,7 +23,7 @@ template<typename Value, typename Pred = std::equal_to<Value>,
          typename Hash = std::hash<Value>>
 class HashTable {
 public:
-    typedef unsigned SizeType;
+    typedef std::size_t SizeType;
     typedef std::vector<DoublyLinkedList<Value, Pred>> Container;
 
     /*

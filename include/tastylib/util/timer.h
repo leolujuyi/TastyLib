@@ -13,7 +13,7 @@ from the starting clock time.
 
 @param start The starting clock time.
 */
-inline double elapse(const clock_t start) {
+inline double elapse(const std::clock_t start) {
     return 1000 * (clock() - start) / (double)CLOCKS_PER_SEC;
 }
 

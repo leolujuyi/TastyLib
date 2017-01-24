@@ -18,7 +18,7 @@ A heap data structure taking the form of a complete binary tree.
              By default it uses operator '>=' as the predicate, which makes it
              a min-root heap.
 */
-template <typename Value, typename Pred = std::greater_equal<Value>>
+template<typename Value, typename Pred = std::greater_equal<Value>>
 class BinaryHeap {
 public:
     typedef std::vector<Value> Container;

@@ -2,6 +2,8 @@
 #define TASTYLIB_BASE_H_
 
 #include "tastylib/util/leak_check.h"
+#include <cstddef>
+#include <cstdint>
 
 // Namespace
 #define TASTYLIB_NS_BEGIN namespace tastylib {

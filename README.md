@@ -499,11 +499,11 @@ int main() {
 | Operation | Time | Stable |
 |:---------:|:----:|:------:|
 |[insertionSort()](./include/tastylib/Sort.h#L18)|O(n^2)|Yes|
-|[selectionSort()](./include/tastylib/Sort.h#L39)|O(n^2)|No|
-|[heapSort()](./include/tastylib/Sort.h#L61)|O(nlogn)|No|
+|[selectionSort()](./include/tastylib/Sort.h#L40)|O(n^2)|No|
+|[heapSort()](./include/tastylib/Sort.h#L62)|O(nlogn)|No|
 |[mergeSort()](#cost-in-theory)|O(nlogn)|Yes|
-|[quickSort()](./include/tastylib/Sort.h#L109)|O(nlogn)|No|
-|[quickSelect()](./include/tastylib/Sort.h#L143)|O(n)|-|
+|[quickSort()](./include/tastylib/Sort.h#L110)|O(nlogn)|No|
+|[quickSelect()](./include/tastylib/Sort.h#L144)|O(n)|-|
 
 ##### Cost in practice
 

@@ -180,12 +180,12 @@ public:
         SizeType manhatten = 0, geometric = 0;
         for (SizeType i = 0; i < size; ++i) {
             if (val[i]) {  // Escape value 0
-                auto curR = getRow(i);
-                auto curC = getCol(i);
-                auto desR = getRow(index[val[i]]);
-                auto desC = getCol(index[val[i]]);
-                auto dR = curR > desR ? curR - desR : desR - curR;
-                auto dC = curC > desC ? curC - desC : desC - curC;
+                SizeType curR = getRow(i);
+                SizeType curC = getCol(i);
+                SizeType desR = getRow(index[val[i]]);
+                SizeType desC = getCol(index[val[i]]);
+                SizeType dR = curR > desR ? curR - desR : desR - curR;
+                SizeType dC = curC > desC ? curC - desC : desC - curC;
                 manhatten += dR + dC;
                 geometric += (SizeType)(sqrt(dR * dR + dC * dC));
             }
@@ -335,7 +335,7 @@ public:
     Solve the problem using A* searching.
     */
     void solve() {
-        auto index = buildIndex();
+        std::vector<SizeType> index = buildIndex();
         searchCnt = 0;
         openList.push(&beg);
         while (!openList.isEmpty()) {
@@ -461,7 +461,7 @@ private:
     Return the index of the grid numbers in the ending node value.
     */
     std::vector<SizeType> buildIndex() const {
-        auto endVal = end.getVal();
+        const auto &endVal = end.getVal();
         std::vector<SizeType> index(endVal.size());
         for (SizeType i = 0; i < endVal.size(); ++i) {
             index[endVal[i]] = i;

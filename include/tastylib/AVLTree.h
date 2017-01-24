@@ -25,13 +25,13 @@ template<typename Value,
          typename PredEq = std::equal_to<Value>>
 class AVLTree {
 public:
-    typedef unsigned SizeType;
+    typedef std::size_t SizeType;
 
     struct Node {
         Value val;
         Node* left;
         Node* right;
-        SizeType height;
+        int height;
 
         Node(const Value &v, Node *const l = nullptr, Node *const r = nullptr)
             : val(v), left(l), right(r), height(0) {}
