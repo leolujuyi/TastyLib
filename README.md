@@ -22,6 +22,7 @@ Contents below show the data structures and algorithms available in this project
 |[BinaryHeap](#binaryheap)|[Unit test](./test/test_BinaryHeap.cpp)<br />[BinaryHeap.h](./include/tastylib/BinaryHeap.h)|Yes|A heap data structure taking the form of a complete binary tree. A common way of implementing [priority queue](https://en.wikipedia.org/wiki/Priority_queue).|[Wikipedia](https://en.wikipedia.org/wiki/Binary_heap)|
 |[HashTable](#hashtable)|[Unit test](./test/test_HashTable.cpp)<br />[HashTable.h](./include/tastylib/HashTable.h)|No|A data structure that stores unique elements in no particular order, and which allows for fast retrieval of individual elements based on their values. Similar to [std::unordered_set](http://www.cplusplus.com/reference/unordered_set/unordered_set).|[Wikipedia](https://en.wikipedia.org/wiki/Hash_table)|
 |[AVLTree](#avltree)|[Unit test](./test/test_AVLTree.cpp)<br />[AVLTree.h](./include/tastylib/AVLTree.h)|Yes|A self-balancing binary search tree.|[Wikipedia](https://en.wikipedia.org/wiki/AVL_tree)|
+|[Graph](#graph)|[Unit test](./test/test_Graph.cpp)<br />[Graph.h](./include/tastylib/Graph.h)|No|A data structure to implement the directed/undirected graph concepts from mathematics. It stores a graph in an adjacency list or matrix.|[Wikipedia](https://en.wikipedia.org/wiki/Graph_(abstract_data_type))|
 
 ### Algorithms
 
@@ -342,6 +343,46 @@ The program compares the time cost of `AVLTree` with `std::multiset`. It calcula
 |remove()|233 ns|436 ns|
 
 **(Items marked with * may be unreliable.)**
+
+### Graph
+
+#### Usage
+
+```c++
+#include "tastylib/Graph.h"
+#include <string>
+
+using namespace tastylib;
+
+int main() {
+
+    // Create a graph that has three vertices.
+    // Each vertex stores a string object.
+    Graph<std::string> graph(3);
+
+    // Modify the string object in each vertex
+    graph[0] = "I am vertex 0.";
+    graph[1] = "I am vertex 1.";
+    graph[2] = "I am vertex 2.";
+
+    // Add edges
+    graph.setWeight(0, 1, 10);
+    graph.setWeight(0, 2, 20);
+    graph.setWeight(1, 2, 30);
+
+    // Get edge weights
+    auto w0 = graph.getWeight(0, 1);  // w0 == 10
+    auto w1 = graph.getWeight(0, 2);  // w1 == 20
+    auto w2 = graph.getWeight(1, 2);  // w2 == 30
+
+    // Get adjacent vertices
+    auto n0 = graph.getNeighbors(0);  // n0 == [1, 2]
+    auto n1 = graph.getNeighbors(1);  // n1 == [2]
+    auto n2 = graph.getNeighbors(2);  // n2 == []
+
+    return 0;
+}
+```
 
 ### MD5
 
