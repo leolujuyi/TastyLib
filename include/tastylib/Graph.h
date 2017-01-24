@@ -17,7 +17,7 @@ list or matrix.
 template<typename Value = int>
 class Graph {
 public:
-    typedef std::size_t VertexNumType;
+    typedef std::size_t NumType;
     typedef std::int32_t WeightType;
 
     static const WeightType MAX_WEIGHT = INT32_MAX;
@@ -42,11 +42,11 @@ public:
     @param n_    The amount of vertices in the graph
     @param type_ The storage type of the graph
     */
-    Graph(const VertexNumType n_, const StorageType type_ = LIST) : type(type_) {
+    Graph(const NumType n_, const StorageType type_ = LIST) : type(type_) {
         vertices.resize(n_);
         if (type == MATRIX) {
-            for (VertexNumType i = 0; i < n_; ++i) {
-                for (VertexNumType j = 0; j < n_; ++j) {
+            for (NumType i = 0; i < n_; ++i) {
+                for (NumType j = 0; j < n_; ++j) {
                     vertices[i].weight.push_back(i == j ? 0 : MAX_WEIGHT);
                 }
             }
@@ -56,7 +56,7 @@ public:
     /*
     Return the amount of vertices in the graph.
     */
-    VertexNumType getSize() const {
+    NumType getSize() const {
         return vertices.size();
     }
     
@@ -72,7 +72,7 @@ public:
 
     @param v The number of the vertex
     */
-    Value& operator[](const VertexNumType v) {
+    Value& operator[](const NumType v) {
         return vertices[v].val;
     }
 
@@ -82,7 +82,7 @@ public:
     @param from The starting vertex number of the edge
     @param to   The ending vertex number of the edge
     */
-    WeightType getWeight(const VertexNumType from, const VertexNumType to) const {
+    WeightType getWeight(const NumType from, const NumType to) const {
         switch (type) {
             case LIST:
                 for (const auto &v : vertices[from].neighbors) {
@@ -105,7 +105,7 @@ public:
     @param to   The ending vertex number of the edge
     @param w    The weight of the edge
     */
-    void setWeight(const VertexNumType from, const VertexNumType to, const WeightType w) {
+    void setWeight(const NumType from, const NumType to, const WeightType w) {
         switch (type) {
             case LIST: {
                 bool exist = false;
@@ -133,8 +133,8 @@ public:
     Return all neighbors of a given vertex.
     An edge that has the maximum or minimum weight is considered not exist.
     */
-    std::vector<VertexNumType> getNeighbors(const VertexNumType v) const {
-        std::vector<VertexNumType> res;
+    std::vector<NumType> getNeighbors(const NumType v) const {
+        std::vector<NumType> res;
         switch (type) {
             case LIST:
                 for (const auto &n : vertices[v].neighbors) {
@@ -145,7 +145,7 @@ public:
                 break;
             case MATRIX:
             default:
-                for (VertexNumType i = 0; i < vertices.size(); ++i) {
+                for (NumType i = 0; i < vertices.size(); ++i) {
                     if (v != i && !isINF(vertices[v].weight[i])) {
                         res.push_back(i);
                     }
@@ -157,10 +157,10 @@ public:
 
 private:
     struct AdjVertex {
-        VertexNumType num;
+        NumType num;
         WeightType weight;
 
-        AdjVertex(const VertexNumType n, const WeightType w)
+        AdjVertex(const NumType n, const WeightType w)
             : num(n), weight(w) {}
     };
 

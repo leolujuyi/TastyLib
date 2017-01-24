@@ -31,6 +31,7 @@ Contents below show the data structures and algorithms available in this project
 |[MD5](#md5)|[Unit test](./test/test_MD5.cpp)<br />[MD5.h](./include/tastylib/MD5.h)|Yes|A widely used hash function producing a 128-bit hash value.|[Wikipedia](https://en.wikipedia.org/wiki/MD5)|
 |[NPuzzle](#npuzzle)|[Unit test](./test/test_NPuzzle.cpp)<br />[NPuzzle.h](./include/tastylib/NPuzzle.h)|Yes|A classic searching problem solved with [A* search](https://en.wikipedia.org/wiki/A*_search_algorithm). A [GUI demo](https://github.com/stevennL/Puzzle) has been provided.|[Wikipedia](https://en.wikipedia.org/wiki/15_puzzle)|
 |[Sort](#sort)|[Unit test](./test/test_Sort.cpp)<br />[Sort.h](./include/tastylib/Sort.h)|Yes|Including [insertion sort](https://en.wikipedia.org/wiki/Insertion_sort), [selection sort](https://en.wikipedia.org/wiki/Selection_sort), [heapsort](https://en.wikipedia.org/wiki/Heapsort), [quicksort](https://en.wikipedia.org/wiki/Quicksort), [quickselect](https://en.wikipedia.org/wiki/Quickselect). For [merge sort](https://en.wikipedia.org/wiki/Merge_sort), please refer to [DoublyLinkedList.sort()](#cost-in-theory).|[Wikipedia](https://en.wikipedia.org/wiki/Sorting_algorithm)|
+|[Dijkstra](#dijkstra)|[Unit test](./test/test_Dijkstra.cpp)<br />[Dijkstra.h](./include/tastylib/Dijkstra.h)|No|An algorithm to find the shortest paths between vertices in a graph.|[Wikipedia](https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm)|
 
 ## Installation
 
@@ -575,6 +576,42 @@ The program calculates the average time cost to sort or find the kth element in 
 |quickSort()|6.79 ms|
 |std::nth_element()|1.08 ms|
 |quickSelect()|0.88 ms|
+
+### Dijkstra
+
+#### Usage
+
+```c++
+#include "tastylib/Dijkstra.h"
+#include <string>
+
+using namespace tastylib;
+
+int main() {
+    DijkGraph<string> graph(3);  // Create a graph that has three vertices
+
+    graph[0].val = "Alice";  // Vertex 0 denotes Alice's home
+    graph[1].val = "Darth";  // Vertex 1 denotes Darth's home
+    graph[2].val = "Bob";    // Vertex 2 denotes Bob' home
+
+    graph.setWeight(0, 1, 5);   // Distance from Alice's home to Darth's is 5
+    graph.setWeight(0, 2, 20);  // Distance from Alice's home to Bob's is 20
+    graph.setWeight(1, 2, 5);   // Distance from Darth's home to Bob's is 5
+
+    // Run Dijkstra's algorithm to compute the
+    // shortest path from Alice's home to others'.
+    dijkstra(graph, 0);
+
+    // Now I know the minimum distance from Alice's home to Bob's home, which is 10.
+    auto distToBob = graph[2].dist;  // distToBob == 10
+
+    // I also know the minimum path to Bob's home is "0->1->2", namely "Alice->Darth->Bob".
+    auto prev1 = graph[2].prev;      // prev1 == 1
+    auto prev2 = graph[prev1].prev;  // prev2 == 0
+
+    return 0;
+}
+```
 
 ## License
 

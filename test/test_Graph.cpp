@@ -6,12 +6,12 @@ using namespace tastylib;
 using std::string;
 
 typedef Graph<string> G;
-typedef G::VertexNumType VertexNumType;
+typedef G::NumType NumType;
 typedef G::WeightType WeightType;
 
 TEST(Graph, List) {
-    G graph(3);
-    EXPECT_EQ(graph.getSize(), (VertexNumType)3);
+    G graph(3, G::LIST);
+    EXPECT_EQ(graph.getSize(), (NumType)3);
     // Test operator[]
     graph[0] = "AA";
     graph[1] = "BB";
@@ -67,7 +67,7 @@ TEST(Graph, List) {
 
 TEST(Graph, Matrix) {
     G graph(3, G::MATRIX);
-    EXPECT_EQ(graph.getSize(), (VertexNumType)3);
+    EXPECT_EQ(graph.getSize(), (NumType)3);
     // Test operator[]
     graph[0] = "AA";
     graph[1] = "BB";

@@ -11,6 +11,7 @@
 #include "tastylib/MD5.h"
 #include "tastylib/NPuzzle.h"
 #include "tastylib/Sort.h"
+#include "tastylib/Dijkstra.h"
 
 #include <iostream>
 #include <string>
